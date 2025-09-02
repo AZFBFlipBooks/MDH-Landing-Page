@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MDH | Home, About, Gallery & Shop</title>
+  <meta name="description" content="ModernDayHippie 5280 — Home slideshow, About, Gallery, and Shop." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#0f1115; --surface:#151821; --text:#e9e9ef; --muted:#a7adbb; --accent:#7c5cff;
+      --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Arial, Helvetica, sans-serif;background:linear-gradient(180deg,#0b0d12 0%, var(--bg) 100%);color:var(--text)}
+
+    .wrap{min-height:100%;display:flex;flex-direction:column}
+
+    /* Header / Nav */
+    header{position:sticky;top:0;background:rgba(10,12,18,.6);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.06);z-index:10}
+    .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 18px}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .links{display:flex;gap:10px;justify-content:center;text-align:center}
+    .links a{display:inline-flex;align-items:center;justify-content:center;color:var(--text);text-decoration:none;padding:8px 12px;border-radius:999px;border:1px solid transparent}
+    .links a.active{background:var(--accent);color:#fff}
+    .links a:hover{border-color:rgba(255,255,255,.12)}
+
+    /* Layout */
+    main{max-width:1100px;margin:0 auto;padding:22px}
+    section{display:none;animation:fade .4s ease}
+    section.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+    /* Slideshow */
+    .slideshow{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+    .slide{display:none;position:relative}
+    .slide.active{display:block}
+    .slide img{width:100%;height:62vh;max-height:720px;object-fit:cover;display:block}
+    .controls{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
+    .btn{pointer-events:auto;appearance:none;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:10px 12px;cursor:pointer}
+    .btn:hover{background:rgba(255,255,255,.12)}
+    .dots{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:6px;justify-content:center}
+    .dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.4);border:none}
+    .dot.active{background:#fff}
+
+    /* Reusable card + grid */
+    .card{background:var(--surface);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);border-radius:var(--radius);padding:22px;font-size:18px;line-height:1.8}
+    .grid{display:grid;gap:16px;grid-template-columns:1fr;text-align:center}
+    .card h2,.card h3{font-size:22px;margin:0 0 8px}
+
+    /* Gallery */
+    .gallery-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+    .gallery-grid img{width:100%;display:block;border-radius:12px;object-fit:cover;box-shadow:var(--shadow)}
+
+    /* Shop (styled similar to About) */
+    .shop-card .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0 6px}
+    .btn-pill{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none}
+    .btn-pill.primary{background:var(--accent);color:#fff}
+    .btn-pill.ghost{border:1px solid rgba(255,255,255,.18);color:var(--text)}
+    .btn-pill i{font-size:1.1rem}
+
+    /* Footer */
+    footer{text-align:center;padding:20px;background:#0f1115;border-top:1px solid rgba(255,255,255,.08);margin-top:auto}
+    footer a{color:var(--text);text-decoration:none}
+    footer a:hover{color:#fff}
+    .social a{font-size:22px;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08)}
+    .social a:hover{background:rgba(255,255,255,.14)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <nav class="nav" aria-label="Primary">
+        <div class="brand">ModernDayHippie 5280</div>
+        <div class="links">
+          <a href="#home" id="link-home" class="active">Home</a>
+          <a href="#about" id="link-about">About</a>
+          <a href="#gallery" id="link-gallery">Gallery</a>
+          <a href="#shop" id="link-shop">Shop</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="active" aria-labelledby="home-h">
+        <h1 id="home-h" style="text-align:center;margin:6px 0 14px">ModernDayHippie 5280</h1>
+        <h1 style="text-align:center;">Peace, Love, Unity & Respect in<br>Every Stitch</h1>
+
+        <div class="slideshow" id="slideshow" aria-label="Slideshow gallery">
+          <div class="slide" data-caption="Forest trail">
+            <img src="https://live.staticflickr.com/65535/54740691884_5306375b22_b.jpg" alt="Forest trail" loading="lazy">
+          </div>
+          <div class="slide active" data-caption="Joel Sit by Joel Carr">
+            <img src="https://live.staticflickr.com/65535/54740676048_bc9be5590b_b.jpg" alt="Joel Sit by Joel Carr" loading="lazy">
+          </div>
+          <div class="slide" data-caption="Ocean cliff">
+            <img src="https://live.staticflickr.com/65535/54740691869_1ba54cc43c_b.jpg" alt="Ocean cliff" loading="lazy">
+          </div>
+
+          <div class="controls" aria-hidden="false">
+            <button class="btn" id="prev" aria-label="Previous">◀</button>
+            <button class="btn" id="next" aria-label="Next">▶</button>
+          </div>
+          <div class="dots" id="dots" aria-hidden="false"></div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" aria-labelledby="about-h">
+        <h1 id="about-h" style="margin:6px 0 14px;text-align:center">About</h1>
+        <div class="card grid">
+          <div>
+            <h2>About ModernDayHippie 5280</h2>
+            <p><strong>Where Spirit Meets Street.</strong></p>
+            <p>ModernDayHippie 5280 (MDH 5280) isn't just a brand. It's a lifestyle revolution.</p>
+            <p>Born from the idea that spirituality and streetwear don't have to live in separate worlds, we're here to challenge the norm and spark something deeper. Our oversized, statement-driven apparel is for those who live with intention, hustle with heart, and crave real connection in a world full of noise.</p>
+            <p>We blend raw expression with rooted energy. Bold prints, deep truths, and designs that speak louder than words. Every piece is more than fabric. It's a conversation, a mindset, a reminder to stay grounded, rebel consciously, and live out loud.</p>
+            <h3>What We Stand For</h3>
+            <ul style="list-style-position:inside;text-align:center">
+              <li><strong>Conscious Living:</strong> Strong, not soft. Gear that keeps you centered while you move.</li>
+              <li><strong>Rebellious Spirit:</strong> For disruptors, dreamers, and seekers who don’t settle.</li>
+              <li><strong>Authenticity Over Approval:</strong> We don’t chase trends. We live truth.</li>
+              <li><strong>Real Talk, Real Threads:</strong> Messages that say what you mean.</li>
+            </ul>
+            <h3>This Is More Than Clothing. This Is a Movement.</h3>
+            <p>For the modern day philosophers, spiritual warriors, and mindful misfits. One foot in the grind, one in the divine.</p>
+            <p><strong>Welcome to MDH 5280.</strong> The revolution looks good on you.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="gallery" aria-labelledby="gallery-h">
+        <h1 id="gallery-h" style="margin:6px 0 14px;text-align:center">Gallery</h1>
+        <div class="gallery-grid">
+          <img src="https://live.staticflickr.com/65535/54759482681_a9316e5347_b.jpg" alt="Gallery image 1" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759702978_288290e48c_b.jpg" alt="Gallery image 2" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759702973_916e418a16_b.jpg" alt="Gallery image 3" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759708659_e3fbd4bff0_b.jpg" alt="Gallery image 4" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759708654_24b57d0b72_b.jpg" alt="Gallery image 5" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54758625542_394ee0b3c0_b.jpg" alt="Gallery image 6" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759816480_d481356113_b.jpg" alt="Gallery image 7" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759816470_21e9ff3479_b.jpg" alt="Gallery image 8" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759708649_4ebe5f0772_b.jpg" alt="Gallery image 9" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54758625502_e04892b0b4_b.jpg" alt="Gallery image 10" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759482626_c94c5bd99c_b.jpg" alt="Gallery image 11" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759482631_a0bd79652c_b.jpg" alt="Gallery image 12" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759702923_d3f6fc993d_b.jpg" alt="Gallery image 13" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759816440_3e5188d28c_b.jpg" alt="Gallery image 14" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759708624_88896bf96a_b.jpg" alt="Gallery image 15" loading="lazy">
+          <img src="https://live.staticflickr.com/65535/54759702903_ac5590df8b_b.jpg" alt="Gallery image 16" loading="lazy">
+        </div>
+      </section>
+
+      <!-- SHOP (card-style like About) -->
+      <section id="shop" aria-labelledby="shop-h">
+        <h1 id="shop-h" style="margin:6px 0 14px;text-align:center">Shop</h1>
+        <div class="card grid shop-card">
+          <div>
+            <h2>Grab Your Gear</h2>
+            <p><strong>Purpose-driven streetwear.</strong> Peace, Love, Unity, Respect — in every stitch.</p>
+            <p>Our online store is hosted on Printify. Tap below to browse tees, hoodies, and limited drops.</p>
+
+            <div class="cta">
+              <a class="btn-pill primary" href="https://mdh-5280.printify.me/" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-bag-shopping"></i> Visit Online Shop
+              </a>
+              <a class="btn-pill ghost" href="#home">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+              </a>
+            </div>
+
+            <ul style="list-style-position:inside;text-align:center;margin:10px 0 0;line-height:1.8">
+              <li><strong>Secure checkout</strong></li>
+              <li><strong>Worldwide shipping</strong> to your door</li>
+              
+              <li><strong>Limited drops</strong> — cop it before it’s gone</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p style="margin:6px 0;font-weight:bold;">ModernDayHippie 5280</p>
+      <p style="margin:6px 0;">
+        <a href="#home">Home</a> |
+        <a href="#about">About</a> |
+        <a href="#gallery">Gallery</a> |
+        <a href="#shop">Shop</a>
+      </p>
+      <p class="social" style="margin:10px 0;">
+        <a href="https://www.instagram.com/moderndayhippie5280" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </p>
+      <p style="font-size:14px;color:#a7adbb;">© 2025 ModernDayHippie 5280. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // ========= Simple Hash Router =========
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = {
+        home: document.getElementById('home'),
+        about: document.getElementById('about'),
+        gallery: document.getElementById('gallery'),
+        shop: document.getElementById('shop')
+      };
+      const links = {
+        home: document.getElementById('link-home'),
+        about: document.getElementById('link-about'),
+        gallery: document.getElementById('link-gallery'),
+        shop: document.getElementById('link-shop')
+      };
+
+      function show(id){
+        Object.values(sections).forEach(s => s && s.classList.remove('active'));
+        Object.values(links).forEach(a => a && a.classList.remove('active'));
+        (sections[id] || sections.home).classList.add('active');
+        (links[id] || links.home).classList.add('active');
+      }
+      function onHash(){ show((location.hash || '#home').slice(1)); }
+      window.addEventListener('hashchange', onHash); onHash();
+
+      // ========= Slideshow =========
+      const slides = Array.from(document.querySelectorAll('#slideshow .slide'));
+      const prevBtn = document.getElementById('prev');
+      const nextBtn = document.getElementById('next');
+      const dotsWrap = document.getElementById('dots');
+      let idx = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
+      if (idx === -1) idx = 0;
+      let timer = null;
+      const INTERVAL = 5000;
+
+      function renderDots(){
+        if (!dotsWrap || !slides.length) return;
+        dotsWrap.innerHTML = '';
+        slides.forEach((_, i) => {
+          const b = document.createElement('button');
+          b.className = 'dot' + (i === idx ? ' active' : '');
+          b.setAttribute('aria-label', `Go to slide ${i+1}`);
+          b.addEventListener('click', () => go(i));
+          dotsWrap.appendChild(b);
+        });
+      }
+      function go(n){
+        if (!slides.length) return;
+        slides[idx].classList.remove('active');
+        idx = (n + slides.length) % slides.length;
+        slides[idx].classList.add('active');
+        renderDots();
+        restart();
+      }
+      function next(){ go(idx + 1); }
+      function prev(){ go(idx - 1); }
+      function start(){ stop(); if (slides.length > 1) timer = setInterval(next, INTERVAL); }
+      function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+      function restart(){ stop(); start(); }
+
+      if (prevBtn) prevBtn.addEventListener('click', prev);
+      if (nextBtn) nextBtn.addEventListener('click', next);
+
+      const home = sections.home;
+      if (home) {
+        const obs = new MutationObserver(() => {
+          if (home.classList.contains('active')) start(); else stop();
+        });
+        obs.observe(home, { attributes: true, attributeFilter: ['class'] });
+      }
+      renderDots(); start();
+    });
+  </script>
+</body>
+</html>
