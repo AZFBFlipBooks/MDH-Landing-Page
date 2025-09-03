@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MDH | Home, About, Gallery & Shop</title>
-  <meta name="description" content="ModernDayHippie 5280 — Home slideshow, About, Gallery, and Shop." />
+  <title>MDH | Home, About, Gallery, Shop & Blog</title>
+  <meta name="description" content="ModernDayHippie 5280 — Home slideshow, About, Gallery, Shop, and Blog." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -54,12 +54,39 @@
     .gallery-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
     .gallery-grid img{width:100%;display:block;border-radius:12px;object-fit:cover;box-shadow:var(--shadow)}
 
-    /* Shop (styled similar to About) */
+    /* Shop (card style) */
     .shop-card .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0 6px}
     .btn-pill{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none}
     .btn-pill.primary{background:var(--accent);color:#fff}
     .btn-pill.ghost{border:1px solid rgba(255,255,255,.18);color:var(--text)}
     .btn-pill i{font-size:1.1rem}
+
+    /* Blog list */
+    .blog-intro{margin:0 0 14px;color:var(--muted);text-align:center}
+    .posts{display:grid;gap:14px}
+    .post-card{background:var(--surface);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);border-radius:14px;padding:18px;text-align:left}
+    .post-title{margin:0 0 6px;font-size:22px}
+    .post-meta{color:var(--muted);font-size:14px;margin:0 0 10px}
+    .post-tags{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0}
+    .tag{font-size:12px;border:1px solid rgba(255,255,255,.18);padding:3px 8px;border-radius:999px;color:var(--text)}
+    .readmore{margin-top:10px}
+    .readmore button{background:transparent;border:1px solid rgba(255,255,255,.18);color:var(--text);border-radius:999px;padding:8px 12px;cursor:pointer}
+    .readmore button:hover{background:rgba(255,255,255,.08)}
+
+    /* Blog Admin / New Post Form */
+    .admin-wrap{margin:16px 0}
+    .admin-toolbar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+    .admin-toolbar .btn{border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--text);border-radius:999px;padding:8px 12px;cursor:pointer}
+    .admin-toolbar .btn:hover{background:rgba(255,255,255,.08)}
+    .new-post{display:none;background:var(--surface);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);border-radius:14px;padding:16px;text-align:left;max-width:820px;margin:0 auto}
+    .new-post label{display:block;margin:8px 0 4px;font-size:14px;color:var(--muted)}
+    .new-post input[type="text"],
+    .new-post input[type="date"],
+    .new-post textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:#0f1115;color:var(--text)}
+    .new-post textarea{min-height:140px;resize:vertical}
+    .form-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
+    .btn-primary{background:var(--accent);color:#fff;border:none}
+    .btn-danger{border:1px solid rgba(255,80,80,.5);color:#fff;background:rgba(255,80,80,.15)}
 
     /* Footer */
     footer{text-align:center;padding:20px;background:#0f1115;border-top:1px solid rgba(255,255,255,.08);margin-top:auto}
@@ -79,6 +106,7 @@
           <a href="#about" id="link-about">About</a>
           <a href="#gallery" id="link-gallery">Gallery</a>
           <a href="#shop" id="link-shop">Shop</a>
+          <a href="#blog" id="link-blog">Blog</a>
         </div>
       </nav>
     </header>
@@ -155,7 +183,7 @@
         </div>
       </section>
 
-      <!-- SHOP (card-style like About) -->
+      <!-- SHOP -->
       <section id="shop" aria-labelledby="shop-h">
         <h1 id="shop-h" style="margin:6px 0 14px;text-align:center">Shop</h1>
         <div class="card grid shop-card">
@@ -174,13 +202,52 @@
             </div>
 
             <ul style="list-style-position:inside;text-align:center;margin:10px 0 0;line-height:1.8">
-              <li><strong>Secure checkout</strong></li>
+              <li><strong>Secure checkout</strong> via Printify vendors</li>
               <li><strong>Worldwide shipping</strong> to your door</li>
-              
+              <li><strong>Quality blanks</strong> like Bella+Canvas & Shaka Wear</li>
               <li><strong>Limited drops</strong> — cop it before it’s gone</li>
             </ul>
           </div>
         </div>
+      </section>
+
+      <!-- BLOG -->
+      <section id="blog" aria-labelledby="blog-h">
+        <h1 id="blog-h" style="margin:6px 0 14px;text-align:center">Blog</h1>
+        <p class="blog-intro">Stories behind the threads, drops, and mindset. Fresh perspective from MDH 5280.</p>
+
+        <!-- Admin / New Post tools -->
+        <div class="admin-wrap">
+          <div class="admin-toolbar">
+            <button id="toggle-new-post" class="btn">✚ New Post</button>
+            <button id="export-posts" class="btn">⬇ Export JSON</button>
+            <button id="clear-posts" class="btn btn-danger">🗑 Clear All (local)</button>
+          </div>
+
+          <form id="new-post-form" class="new-post" autocomplete="off">
+            <label for="np-title">Title</label>
+            <input id="np-title" type="text" placeholder="Post title" required />
+
+            <label for="np-date">Date</label>
+            <input id="np-date" type="date" />
+
+            <label for="np-tags">Tags (comma separated)</label>
+            <input id="np-tags" type="text" placeholder="quality, drops, mindset" />
+
+            <label for="np-excerpt">Excerpt</label>
+            <input id="np-excerpt" type="text" placeholder="Short teaser for the post" />
+
+            <label for="np-content">Content (HTML allowed for bold/links)</label>
+            <textarea id="np-content" placeholder="Write your post..."></textarea>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Publish</button>
+              <button type="button" id="cancel-new-post" class="btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="posts" id="posts"></div>
       </section>
     </main>
 
@@ -190,7 +257,8 @@
         <a href="#home">Home</a> |
         <a href="#about">About</a> |
         <a href="#gallery">Gallery</a> |
-        <a href="#shop">Shop</a>
+        <a href="#shop">Shop</a> |
+        <a href="#blog">Blog</a>
       </p>
       <p class="social" style="margin:10px 0;">
         <a href="https://www.instagram.com/moderndayhippie5280" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -201,20 +269,22 @@
     </footer>
   </div>
 
+  <!-- Router + Slideshow -->
   <script>
-    // ========= Simple Hash Router =========
     document.addEventListener('DOMContentLoaded', () => {
       const sections = {
         home: document.getElementById('home'),
         about: document.getElementById('about'),
         gallery: document.getElementById('gallery'),
-        shop: document.getElementById('shop')
+        shop: document.getElementById('shop'),
+        blog: document.getElementById('blog')
       };
       const links = {
         home: document.getElementById('link-home'),
         about: document.getElementById('link-about'),
         gallery: document.getElementById('link-gallery'),
-        shop: document.getElementById('link-shop')
+        shop: document.getElementById('link-shop'),
+        blog: document.getElementById('link-blog')
       };
 
       function show(id){
@@ -226,7 +296,7 @@
       function onHash(){ show((location.hash || '#home').slice(1)); }
       window.addEventListener('hashchange', onHash); onHash();
 
-      // ========= Slideshow =========
+      // Slideshow
       const slides = Array.from(document.querySelectorAll('#slideshow .slide'));
       const prevBtn = document.getElementById('prev');
       const nextBtn = document.getElementById('next');
@@ -273,6 +343,222 @@
       }
       renderDots(); start();
     });
+  </script>
+
+  <!-- Blog: storage + renderer + form -->
+  <script>
+    const LS_KEY = 'mdh_blog_posts_v1';
+
+    function seedPosts(){
+      return [
+        {
+         
+          title: "What Does It Mean to Be a Modern-Day Hippie?",
+          date: "2025-08-22",
+          tags: ["Identity", "Mindfulness"],
+          excerpt: "It’s more than tie-dye and nostalgia—it’s living with intention.",
+          content: `
+            At MDH 5280, being a modern-day hippie isn’t about stereotypes.
+            It’s about choosing peace, love, unity, respect, and mindfulness
+            in everything we do. Our clothes aren’t just fabric—they’re armor
+            for authenticity, strength, and freedom.
+          `
+        },
+        {
+          title: "Streetwear With Purpose",
+          date: "2025-08-22",
+          tags: ["Streetwear", "Culture"],
+          excerpt: "Style is louder when it speaks with meaning.",
+          content: `
+            Streetwear has always been about more than clothes—it’s about culture.
+            At MDH 5280, we infuse every piece with a message of strength,
+            clarity, and mindful rebellion. Oversized fits. Bold designs.
+            Gear that inspires you to live fearless and intentional.
+          `
+        },
+        {
+          title: "Community Over Everything",
+          date: "2025-08-22",
+          tags: ["Community", "Lifestyle"],
+          excerpt: "Life’s better when you don’t walk it alone.",
+          content: `
+            At MDH 5280, we’re building more than a brand—we’re building a movement.
+            From fitness classes to collabs to everyday moments, we’re about unity.
+            When you wear MDH, you rep a community that believes in purpose,
+            strength, and moving together.
+          `
+        },
+        {
+          title: "Born From the Grind, Rooted in Mindfulness",
+          date: "2025-08-22",
+          tags: ["Fitness", "Mindfulness"],
+          excerpt: "Armor for the grind, soul for the journey.",
+          content: `
+            Founded in 2015, MDH 5280 was built on the idea that clothes should
+            fuel your grind and ground your spirit. Whether you’re locking in at
+            the gym or chasing your next vision, MDH is designed for strength
+            and mindfulness in every moment.
+          `
+        },
+        {
+          title: "Why We Do What We Do",
+          date: "2025-08-22",
+          tags: ["Purpose", "Motivation"],
+          excerpt: "We don’t just sell merch—we create reminders.",
+          content: `
+            MDH 5280 exists to remind you to dream bigger, move with intention,
+            and never quit on yourself. Every piece reflects peace, love,
+            unity, and respect. This isn’t just streetwear. It’s a shield for
+            the bold, the mindful, and the relentless.
+          `
+        }
+      ];
+    }
+
+    function getPosts(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return seedPosts();
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : seedPosts();
+      }catch(_){ return seedPosts(); }
+    }
+
+    function savePosts(arr){
+      localStorage.setItem(LS_KEY, JSON.stringify(arr));
+    }
+
+    function renderPost(post, index){
+      const article = document.createElement('article');
+      article.className = 'post-card';
+      const tags = (post.tags||[]).map(t => `<span class="tag">#${t}</span>`).join(' ');
+      const postId = `post-${index}-${Date.now()}-${Math.random().toString(36).slice(2,7)}`;
+
+      article.innerHTML = `
+        <h2 class="post-title">${post.title}</h2>
+        <p class="post-meta">${new Date(post.date).toLocaleDateString()} • ${post.excerpt || ''}</p>
+        <div id="${postId}" class="post-content" style="display:none">${post.content || ''}</div>
+        <div class="readmore">
+          <button type="button" data-target="${postId}" aria-expanded="false">Read more</button>
+        </div>
+        <div class="post-tags">${tags}</div>
+      `;
+      return article;
+    }
+
+    function mountPosts(){
+      const postsEl = document.getElementById('posts');
+      if(!postsEl) return;
+      const posts = getPosts().slice().sort((a,b)=> new Date(b.date) - new Date(a.date));
+      postsEl.innerHTML = '';
+      posts.forEach((p,i)=> postsEl.appendChild(renderPost(p,i)));
+
+      postsEl.querySelectorAll('.readmore button').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.getAttribute('data-target');
+          const el = document.getElementById(id);
+          const open = el.style.display !== 'none';
+          el.style.display = open ? 'none' : 'block';
+          btn.setAttribute('aria-expanded', String(!open));
+          btn.textContent = open ? 'Read more' : 'Show less';
+        });
+      });
+    }
+
+    // New Post form wiring
+    (function(){
+      const toggleBtn = document.getElementById('toggle-new-post');
+      const form = document.getElementById('new-post-form');
+      const cancelBtn = document.getElementById('cancel-new-post');
+      const exportBtn = document.getElementById('export-posts');
+      const clearBtn = document.getElementById('clear-posts');
+
+      const fTitle = document.getElementById('np-title');
+      const fDate  = document.getElementById('np-date');
+      const fTags  = document.getElementById('np-tags');
+      const fExcerpt = document.getElementById('np-excerpt');
+      const fContent = document.getElementById('np-content');
+
+      // Default date = today
+      if (fDate && !fDate.value) {
+        const today = new Date();
+        const iso = today.toISOString().slice(0,10);
+        fDate.value = iso;
+      }
+
+      function showForm(show){
+        if(!form) return;
+        form.style.display = show ? 'block' : 'none';
+      }
+
+      if (toggleBtn){
+        toggleBtn.addEventListener('click', ()=> {
+          const visible = form && form.style.display === 'block';
+          showForm(!visible);
+        });
+      }
+      if (cancelBtn){
+        cancelBtn.addEventListener('click', ()=> showForm(false));
+      }
+
+      if (form){
+        form.addEventListener('submit', (e)=>{
+          e.preventDefault();
+          const title = (fTitle.value || '').trim();
+          if(!title){ alert('Please enter a title.'); return; }
+
+          const post = {
+            title,
+            date: fDate.value || new Date().toISOString().slice(0,10),
+            tags: (fTags.value || '')
+                    .split(',')
+                    .map(s=>s.trim())
+                    .filter(Boolean),
+            excerpt: (fExcerpt.value || '').trim(),
+            content: (fContent.value || '').trim()
+          };
+
+          const posts = getPosts();
+          posts.push(post);
+          savePosts(posts);
+          showForm(false);
+          form.reset();
+          // reset date to today again after reset
+          const iso = new Date().toISOString().slice(0,10);
+          if (fDate) fDate.value = iso;
+
+          mountPosts();
+          location.hash = '#blog';
+        });
+      }
+
+      if (exportBtn){
+        exportBtn.addEventListener('click', ()=>{
+          const data = JSON.stringify(getPosts(), null, 2);
+          const blob = new Blob([data], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'mdh_blog_posts.json';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      if (clearBtn){
+        clearBtn.addEventListener('click', ()=>{
+          if (confirm('Clear all locally saved posts? This cannot be undone.')) {
+            localStorage.removeItem(LS_KEY);
+            mountPosts();
+          }
+        });
+      }
+
+      // Initial render
+      mountPosts();
+    })();
   </script>
 </body>
 </html>
